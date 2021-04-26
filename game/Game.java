@@ -246,7 +246,7 @@ public class Game extends JFrame {
 		repaint();
 		if (tower3.count() == numberOfDisks) {			
 			JOptionPane.showMessageDialog(null, "Congratulations! You did it in "+moves+" moves. Optimal number of moves is " + (int)(Math.pow(2, numberOfDisks)-1)+".", "Finished", JOptionPane.INFORMATION_MESSAGE);
-			File score = new File("score.csv");			
+			File score = new File("./userinfo/score.csv");			
 			try {
 				PrintWriter pw = new PrintWriter(score);					
 				String name = ResetPassword.getCurrentNickname()+",("+ResetPassword.getCurrentUsername()+")";
