@@ -1,4 +1,4 @@
-# towers-of-hanoi-with-login
+# Towers of Hanoi with Login
 
 This is a school assignment I did part of application development class over two years. Every year I worked on it for two weeks.
 
