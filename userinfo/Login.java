@@ -138,7 +138,7 @@ public class Login extends JFrame {
         // Create login "database" if it doesn't exist
         if (!info.exists()) {
             try {                
-                info.mkdirs();
+                info.getParentFile().mkdirs();
                 info.createNewFile();
             } catch (IOException ioe) {
                 ioe.printStackTrace();
@@ -161,7 +161,7 @@ public class Login extends JFrame {
                     if (currentUser.exists()) {
                         currentUser.delete();
                     }
-                    currentUser.mkdirs();
+                    currentUser.getParentFile().mkdirs();
                     currentUser.createNewFile();                                        
                     String clear_nickname = getLine(info, lineIndex).split(" ")[2];                    
                     PrintWriter pw = new PrintWriter(currentUser);
