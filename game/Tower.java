@@ -5,9 +5,14 @@ import java.awt.Graphics;
 public class Tower {	
 	private Disk topDisk;
 	private int tower_xPos;	
+	private GamePanel panel;
 	
 	public Tower(int x) {
 		tower_xPos = x;				
+	}
+
+	public void setPanel(GamePanel p) {
+		panel = p;
 	}
 
 	public void setTowerX(int x) {
@@ -81,9 +86,9 @@ public class Tower {
 	public void drawDisks(Graphics g) {
 		Disk currentDisk = topDisk;		
 		for (int i = 0; i < count(); i++) {
-			int xPos = tower_xPos+(Game.towerWidth/2)-(currentDisk.getWidth()/2);			
-			int yPos = Game.height-(currentDisk.getHeight()*(i+1));
-			g.setColor(Game.candy_red);
+			int xPos = tower_xPos+(GamePanel.towerWidth/2)-(currentDisk.getWidth()/2);			
+			int yPos = panel.getHeight()-(currentDisk.getHeight()*(i+1));
+			g.setColor(GamePanel.candy_red);
 			g.fillRect(xPos, yPos, currentDisk.getWidth(), currentDisk.getHeight());
 			g.setColor(Color.black);
 			g.drawRect(xPos,yPos, currentDisk.getWidth(), currentDisk.getHeight());

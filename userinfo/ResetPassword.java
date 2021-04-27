@@ -11,14 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.*;
 
 import game.Menu;
 
@@ -46,19 +39,8 @@ public class ResetPassword extends JFrame {
         cp.setLayout(null);
         setSize(new Dimension(440, 450));
         setLocationRelativeTo(null);
-        setTitle("Reset Password");
+        setTitle("Reset Password");        
         
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException cnfe) {
-            cnfe.printStackTrace();
-        } catch (InstantiationException ie) {
-            ie.printStackTrace();
-        } catch (IllegalAccessException iae) {
-            iae.printStackTrace();
-        } catch (UnsupportedLookAndFeelException ulafe) {
-            ulafe.printStackTrace();
-        }
 
         // Element Properties
         cp.setBackground(new Color(37,37,38,230)); 		

@@ -52,19 +52,7 @@ public class Menu extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		
-		
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (ClassNotFoundException cnfe) {			
-			cnfe.printStackTrace();
-		} catch (InstantiationException ie) {			
-			ie.printStackTrace();
-		} catch (IllegalAccessException iae) {			
-			iae.printStackTrace();
-		} catch (UnsupportedLookAndFeelException ulafe) {			
-			ulafe.printStackTrace();
-		}
+
 		
 		// Element Properties
 		cp.setLayout(null);
@@ -148,7 +136,7 @@ public class Menu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					int numOfDisks = (int) spin_disks.getValue();					
-					new Game(numOfDisks).setVisible(true);
+					new GameFrame(numOfDisks).setVisible(true);
 					dispose();
 										
 				} catch (NumberFormatException nfe) {

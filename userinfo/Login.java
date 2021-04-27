@@ -1,9 +1,5 @@
 package userinfo;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.HeadlessException;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -16,15 +12,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.*;
 
 import game.Menu;
 
@@ -59,19 +47,8 @@ public class Login extends JFrame {
         cp.setLayout(null);
         setSize(new Dimension(440, 450));
         setLocationRelativeTo(null);
-        setTitle("Login/Registration");
+        setTitle("Login/Registration");        
         
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException cnfe) {
-            cnfe.printStackTrace();
-        } catch (InstantiationException ie) {
-            ie.printStackTrace();
-        } catch (IllegalAccessException iae) {
-            iae.printStackTrace();
-        } catch (UnsupportedLookAndFeelException ulafe) {
-            ulafe.printStackTrace();
-        }
 
         // Element Properties        
         cp.setBackground(new Color(37, 37, 38,230));
@@ -133,8 +110,16 @@ public class Login extends JFrame {
         cp.add(btn_login);        
 
         // Set Visible
-        this.setVisible(true);        
+        this.setVisible(true);
 
+    }
+
+    public static void login() {
+        String clear_username = username_field.getText();
+        String clear_password = new String(password_field.getPassword());        
+        String hashed_password = hashing(clear_password);
+        int lineIndex = -1;
+        
         // Create login "database" if it doesn't exist
         if (!info.exists()) {
             try {                
@@ -145,14 +130,6 @@ public class Login extends JFrame {
                 JOptionPane.showMessageDialog(null, "Login \"database\" could not be created", "Error", JOptionPane.ERROR_MESSAGE);                
             }
         }
-
-    }
-
-    public static void login() {
-        String clear_username = username_field.getText();
-        String clear_password = new String(password_field.getPassword());        
-        String hashed_password = hashing(clear_password);
-        int lineIndex = -1;
 
         if ((lineIndex = checkInFile(info, clear_username)) != -1) {
             try {                
@@ -308,6 +285,16 @@ public class Login extends JFrame {
         String clear_username = username_field.getText();
         String clear_password = new String(password_field.getPassword());
         String clear_nickname = nickname_field.getText();
+        // Create login "database" if it doesn't exist
+        if (!info.exists()) {
+            try {                
+                info.getParentFile().mkdirs();
+                info.createNewFile();
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Login \"database\" could not be created", "Error", JOptionPane.ERROR_MESSAGE);                
+            }
+        }
 
         if (clear_username.isEmpty() || clear_password.isEmpty() || clear_nickname.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Empty username/password/nickname", "Error: Registration", JOptionPane.ERROR_MESSAGE);
