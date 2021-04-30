@@ -88,7 +88,7 @@ public class Tower {
 		for (int i = 0; i < count(); i++) {
 			int xPos = tower_xPos+(GamePanel.towerWidth/2)-(currentDisk.getWidth()/2);			
 			int yPos = panel.getHeight()-(currentDisk.getHeight()*(i+1));
-			g.setColor(GamePanel.candy_red);
+			g.setColor(GamePanel.COLOR_DISK);
 			g.fillRect(xPos, yPos, currentDisk.getWidth(), currentDisk.getHeight());
 			g.setColor(Color.black);
 			g.drawRect(xPos,yPos, currentDisk.getWidth(), currentDisk.getHeight());
