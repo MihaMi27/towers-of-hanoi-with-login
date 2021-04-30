@@ -7,6 +7,7 @@ import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 public class GameFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -15,10 +16,7 @@ public class GameFrame extends JFrame {
 	
 	public GameFrame(int numDisks) {
 		// Init
-		GamePanel game = new GamePanel(numDisks);
-		
-		// Element properties
-		
+		GamePanel game = new GamePanel(numDisks);		
 
 		// Frame Properties
 		setTitle("Towers of Hanoi - Game");
@@ -65,7 +63,11 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void windowClosed(WindowEvent e) {
-				new Menu();
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						new Menu();
+					}
+				});
 				
 			}
 
@@ -101,7 +103,10 @@ public class GameFrame extends JFrame {
 		});
 
 		// Adding
-		getContentPane().add(game);				
+		getContentPane().add(game);
+
+		// Set Visible
+		this.setVisible(true);
 		
 	}
 
