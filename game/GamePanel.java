@@ -1,9 +1,5 @@
 package game;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyAdapter;
@@ -26,35 +22,41 @@ public class GamePanel extends JPanel {
 	static int towerHeight;
 	static int diskHeight;
 	static int diskWidth;
+	static int movesWidth;
+	static int movesHeight;
+	static Font movesFont;
 	static int xTower1;
 	static int xTower2;
 	static int xTower3;
 	static int yTower;
-
 	static int moves = 0;
 	static boolean isSelectedTower1 = true;
 	static boolean isSelectedTower2 = false;
 	static boolean isSelectedTower3 = false;
 	static boolean gameFinished = false;	
-	static Color brown = new Color(160,82,45);
-	static Color light_blue = new Color(0, 122, 204);
-	static Color candy_red = new Color(255,41,41);	
-	static ArrayList<Disk> all_disks = new ArrayList<Disk>();	
+	static ArrayList<Disk> all_disks;
 
-	Tower tower1 = new Tower(xTower1);
-	Tower tower2 = new Tower(xTower2);
-	Tower tower3 = new Tower(xTower3);
-	Tower prevTower = null;	
-	Disk carriedDisk = null;
+	static final Color COLOR_TOWER = new Color(190,190,190);
+	static final Color COLOR_TOWER_OUTLINE = new Color(0,0,0);
+	static final Color COLOR_BACKGROUND = new Color(0, 122, 204);
+	static final Color COLOR_DISK = new Color(23,235,62);
+	static final Color COLOR_OUTLINE = new Color(255,0,0);
+	static final Color COLOR_MOVES = new Color(0,0,0);
+	
+	Tower tower1;
+	Tower tower2;
+	Tower tower3;
+	Tower prevTower;	
+	Disk carriedDisk;	
 
     public GamePanel(int numDisks) {        
         setFocusable(true);
         requestFocus();
 		numberOfDisks = numDisks;
-		startGame();
-
-
-        //Listeners
+		startGame();		
+		
+		
+        // Listeners
         addComponentListener(new ComponentListener() {
 			@Override
 			public void componentHidden(ComponentEvent e) {
@@ -68,7 +70,7 @@ public class GamePanel extends JPanel {
 
 			@Override
 			public void componentResized(ComponentEvent e) {				
-				varCalc();			
+				varCalc(); // calculate variables needed for responsiveness
 				
 			}
 
@@ -154,38 +156,52 @@ public class GamePanel extends JPanel {
 					
 					checkMove();
 				}
+				if (key == KeyEvent.VK_F5) {					
+					startGame();			
+					varCalc();		
+				}				
 				repaint();
 			}
 		});
-		
 
-        for (int i = numberOfDisks; i > 0;i--) {						
+		
+    }
+
+    public void startGame() {
+        moves = 0;
+		all_disks = new ArrayList<Disk>();
+		prevTower = null;	
+		carriedDisk = null;
+		tower1 = new Tower(xTower1);
+		tower2 = new Tower(xTower2);
+		tower3 = new Tower(xTower3);
+        tower1.setPanel(this);
+        tower2.setPanel(this);
+        tower3.setPanel(this);
+		varCalc();			
+        isSelectedTower1 = true;
+        isSelectedTower2 = false;
+        isSelectedTower3 = false;		
+		for (int i = numberOfDisks; i > 0;i--) {						
 			tower1.push(new Disk(i));
 			tower1.peek().setWidth(diskWidth*i);
 			tower1.peek().setHeight(diskHeight);			
 			all_disks.add(tower1.peek());
 		}
-    }
-
-    public void startGame() {
-        moves = 0;
-        tower1.setPanel(this);
-        tower2.setPanel(this);
-        tower3.setPanel(this);
-        isSelectedTower1 = true;
-        isSelectedTower2 = false;
-        isSelectedTower3 = false;
-		varCalc();
+		repaint();
     }
 
     public void varCalc() {
         int width = getWidth();
         int height = getHeight();
-		towerWidth = (int)((width*0.03)*(1+numberOfDisks/150)); // 1280 (10d) ... 40
-		towerHeight = (int)((height*0.40)*(1+numberOfDisks/100)); // 720 (10d) ... 316
+		towerWidth = (int)((width*0.015)*(1+numberOfDisks/150));
+		towerHeight = (int)((height*0.30)*(1+numberOfDisks/100));
 		diskHeight = (int)(height*0.027777);
-		diskWidth = (int)((width*0.0320));		
-		xTower1 = (int)(width*0.150871); // 1280 (10d) ... 193
+		diskWidth = (int)((width*0.031));	
+		movesWidth = (int)(width*0.04);
+		movesHeight = (int)(height*0.1);
+		movesFont = new Font("Helvetica",Font.BOLD,(int)(height*0.05));
+		xTower1 = (int)(width*0.150871);
 		xTower2 = (int)((width/2)-(towerWidth/2));
 		xTower3 = (int)(width-(int)(width*0.150871));
 		yTower = height-towerHeight;
@@ -195,8 +211,7 @@ public class GamePanel extends JPanel {
 		for (Disk d : all_disks) {
 			d.setWidth(diskWidth);
 			d.setHeight(diskHeight);
-		}
-		//validate();
+		}		
 		repaint();
 		
 		
@@ -226,34 +241,36 @@ public class GamePanel extends JPanel {
 		super.paintComponent(g);
         int width = getWidth();
         int height = getHeight();
+
 		// Background
 		Graphics2D g2 = (Graphics2D) g;
-        GradientPaint gp = new GradientPaint(0, 0, Color.WHITE, 0, height, light_blue);
+        GradientPaint gp = new GradientPaint(-100, -100, Color.WHITE, 0, height, COLOR_BACKGROUND);
         g2.setPaint(gp);
         g2.fillRect(0, 0, width, height);
 
-		// Moves
-		g.setColor(Color.black);
-		g.setFont(new Font("Helvetica",1,24));
-		g.drawString("Moves: "+moves, 50, 75);
+		// Moves		
+		g.setFont(movesFont);
+		g.setColor(COLOR_MOVES);
+		g.drawString("Moves: "+moves, movesWidth, movesHeight);
+				
 		
 		
 		// Tower 1
-		g.setColor(brown);
+		g.setColor(COLOR_TOWER);
 		g.fillRect(xTower1, yTower, towerWidth, towerHeight);
-		g.setColor(Color.black);
+		g.setColor(COLOR_TOWER_OUTLINE);
 		g.drawRect(xTower1, yTower, towerWidth, towerHeight);
 		
 		// Tower 2
-		g.setColor(brown);
+		g.setColor(COLOR_TOWER);
 		g.fillRect(xTower2, yTower, towerWidth, towerHeight);
-		g.setColor(Color.black);
+		g.setColor(COLOR_TOWER_OUTLINE);
 		g.drawRect(xTower2, yTower, towerWidth, towerHeight);
 		
 		// Tower 3
-		g.setColor(brown);
+		g.setColor(COLOR_TOWER);
 		g.fillRect(xTower3, yTower, towerWidth, towerHeight);
-		g.setColor(Color.black);
+		g.setColor(COLOR_TOWER_OUTLINE);
 		g.drawRect(xTower3, yTower, towerWidth, towerHeight);
 		
 		// Disks
@@ -271,14 +288,14 @@ public class GamePanel extends JPanel {
 			} else {
 				xPos = xTower3 + (towerWidth-carriedDisk.getWidth())/2;
 			}
-			g.setColor(candy_red);
-			g.fillRect(xPos, yTower-20, carriedDisk.getWidth(), carriedDisk.getHeight());
-			g.setColor(Color.black);
-			g.drawRect(xPos, yTower-20, carriedDisk.getWidth(), carriedDisk.getHeight());
+			g.setColor(COLOR_DISK);
+			g.fillRect(xPos, yTower-(int)(height*0.03), carriedDisk.getWidth(), carriedDisk.getHeight());
+			g.setColor(COLOR_TOWER_OUTLINE);
+			g.drawRect(xPos, yTower-(int)(height*0.03), carriedDisk.getWidth(), carriedDisk.getHeight());
 		}
 		
 		// Outline
-		g.setColor(Color.RED);		
+		g.setColor(COLOR_OUTLINE);		
 		if (isSelectedTower1) {
 			int lastDiskWidth = diskWidth*numberOfDisks;
 			int x_obroba = (xTower1+towerWidth/2)-(int)(width*0.007812)-lastDiskWidth/2;
