@@ -27,7 +27,11 @@ public class Login extends JFrame {
     
 
     public static void main(String[] args) {
-        new Login();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Login();
+            }
+        });
     }
 
     public Login() {
@@ -51,7 +55,7 @@ public class Login extends JFrame {
         
 
         // Element Properties        
-        cp.setBackground(new Color(37, 37, 38,230));
+        cp.setBackground(new Color(37, 37, 38));
         label_naslov.setHorizontalAlignment(SwingConstants.CENTER);
         label_naslov.setFont(new Font("Helvetica", 0, 30));
         label_naslov.setForeground(new Color(240,240,240));
@@ -133,8 +137,7 @@ public class Login extends JFrame {
 
         if ((lineIndex = checkInFile(info, clear_username)) != -1) {
             try {                
-                if (hashed_password.equals(getHashedPassword(info, lineIndex))) {
-                    JOptionPane.showMessageDialog(null, "Login successful", "Success", JOptionPane.PLAIN_MESSAGE);
+                if (hashed_password.equals(getHashedPassword(info, lineIndex))) {                    
                     if (currentUser.exists()) {
                         currentUser.delete();
                     }
