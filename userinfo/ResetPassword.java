@@ -16,12 +16,10 @@ import game.Menu;
 public class ResetPassword extends JFrame {     
     static JPasswordField oldPassword_field = new JPasswordField();
     static JPasswordField newPassword_field = new JPasswordField();
-    static JPasswordField rptNewPassword_field = new JPasswordField();
-    private static JFrame resetPassword_frame;    
+    static JPasswordField rptNewPassword_field = new JPasswordField();     
 
     public ResetPassword() {
-        // Init
-        resetPassword_frame = this;
+        // Init        
         Container cp = getContentPane();
         JLabel label_naslov = new JLabel("Reset Password");        
         JLabel label_oldPassword = new JLabel("Old Password");
@@ -34,41 +32,40 @@ public class ResetPassword extends JFrame {
         // Frame Properties
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-        cp.setLayout(null);
         setSize(new Dimension(440, 450));
         setLocationRelativeTo(null);
-        setTitle("Reset Password");        
+        setTitle("Reset Password");     
         
-
         // Element Properties
-        cp.setBackground(new Color(37,37,38,230)); 		
+        cp.setLayout(null);
         label_naslov.setHorizontalAlignment(SwingConstants.CENTER);
-        label_naslov.setFont(new Font("Helvetica", 0, 30));
-        label_naslov.setForeground(new Color(240,240,240));        
-        label_oldPassword.setFont(new Font("Helvetica", 0, 13)); 
-        label_oldPassword.setForeground(new Color(240,240,240));       
-        label_newPassword.setFont(new Font("Helvetica", 0, 13));
-        label_newPassword.setForeground(new Color(240,240,240));        
-        label_rptNewPassword.setFont(new Font("Helvetica", 0, 13));        
-        label_rptNewPassword.setForeground(new Color(240,240,240));
+        label_naslov.setFont(new Font("Helvetica", Font.PLAIN, 30));
+        label_oldPassword.setFont(new Font("Helvetica", Font.PLAIN, 13)); 
+        label_newPassword.setFont(new Font("Helvetica", Font.PLAIN, 13));
+        label_rptNewPassword.setFont(new Font("Helvetica", Font.PLAIN, 13));        
         btn_change.setFont(new Font("Helvetica", Font.BOLD, 13));
+        btn_back.setFont(new Font("Helvetica", Font.BOLD, 13));        
+        
+        // Element Coloring
+        cp.setBackground(new Color(37,37,38)); 		
+        label_naslov.setForeground(new Color(240,240,240));        
+        label_oldPassword.setForeground(new Color(240,240,240));       
+        label_newPassword.setForeground(new Color(240,240,240));        
+        label_rptNewPassword.setForeground(new Color(240,240,240));
         btn_change.setBackground(new Color(0, 122, 204));
         btn_change.setForeground(new Color(240,240,240));
-        btn_back.setFont(new Font("Helvetica", Font.BOLD, 13));
         btn_back.setBackground(new Color(0, 122, 204));
-        btn_back.setForeground(new Color(240,240,240));
-        
-        
+        btn_back.setForeground(new Color(240,240,240));        
 
         // Positioning
-        label_naslov.setBounds(60, 40, 300, 50);        
-        label_oldPassword.setBounds(60, 130, 300, 25);
-        label_newPassword.setBounds(60, 190, 300, 25);
-        label_rptNewPassword.setBounds(60, 250, 300, 25);        
-        oldPassword_field.setBounds(60, 155, 300, 30);
-        newPassword_field.setBounds(60, 215, 300, 30);
-        rptNewPassword_field.setBounds(60, 275, 300, 30);
-        btn_change.setBounds(60, 320, 300, 30);        
+        label_naslov.setBounds(60,40,300,50);        
+        label_oldPassword.setBounds(60,130,300,25);
+        label_newPassword.setBounds(60,190,300,25);
+        label_rptNewPassword.setBounds(60,250,300,25);        
+        oldPassword_field.setBounds(60,155,300,30);
+        newPassword_field.setBounds(60,215,300,30);
+        rptNewPassword_field.setBounds(60,275,300,30);
+        btn_change.setBounds(60,320,300,30);        
         btn_back.setBounds(60,360,300,30);
 
         // Action Listeners
@@ -97,13 +94,11 @@ public class ResetPassword extends JFrame {
         cp.add(btn_back);       
 
         // Set Visible
-        this.setVisible(true);        
-
-        
+        this.setVisible(true);
 
     }
 
-    public static void reset() {
+    public void reset() {
         String clear_username = getCurrentUsername();
         String clear_oldPassword = new String(oldPassword_field.getPassword());
         String clear_newPassword = new String(newPassword_field.getPassword());
@@ -123,8 +118,13 @@ public class ResetPassword extends JFrame {
                             String newInfo = clear_username+" "+hashed_newPassword+" "+clear_nickname;
                             Login.replaceLine(Login.info,newInfo, lineIndex);
                             JOptionPane.showMessageDialog(null, "Password reset successfully", "Success: Reset", JOptionPane.PLAIN_MESSAGE);
-                            new game.Menu();
-                            resetPassword_frame.dispose();
+                            SwingUtilities.invokeLater(new Runnable() {
+                                @Override
+                                public void run() {                                    
+                                    new Menu();
+                                }                                
+                            });
+                            dispose();
                         } else {
                             JOptionPane.showMessageDialog(null, "Old password doesn't match", "Error: Reset", JOptionPane.ERROR_MESSAGE);
                         }                        
