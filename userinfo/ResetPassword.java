@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -74,24 +72,17 @@ public class ResetPassword extends JFrame {
         btn_back.setBounds(60,360,300,30);
 
         // Action Listeners
-        btn_change.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                reset();                
-            }
-            
+        btn_change.addActionListener(e -> {
+            reset();
         });
 
-        btn_back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    public void run() {
-                        new Menu();
-                    }
-                });                
-                dispose();
-            }
+        btn_back.addActionListener(e -> {
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    new Menu();
+                }
+            });                
+            dispose();            
         });
         
         // Adding

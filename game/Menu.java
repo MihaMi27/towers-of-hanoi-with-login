@@ -1,7 +1,8 @@
 package game;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -120,85 +121,76 @@ public class Menu extends JFrame {
 		
 
 		// Action Listeners
-		btn_play.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				btn_play.setVisible(false);				
-				btn_changePass.setVisible(false);				
-				btn_exit.setVisible(false);
-				btn_back.setVisible(true);
-				spin_disks.setVisible(true);
-				btn_set.setVisible(true);
-				label_spin.setVisible(true);			
-				label_desc.setText(""+
-					"<html><center>"+
-					"To move disks around, you will need to<br>"+
-					"use the arrow keys on your keyboard.<br>"+
-					"You can restart on any point by pressing F5."+
-					"</center></html>"
-				);
-				repaint();		
-			}
+		btn_play.addActionListener(e -> {
+			btn_play.setVisible(false);				
+			btn_changePass.setVisible(false);				
+			btn_exit.setVisible(false);
+			btn_back.setVisible(true);
+			spin_disks.setVisible(true);
+			btn_set.setVisible(true);
+			label_spin.setVisible(true);			
+			label_desc.setText(""+
+				"<html><center>"+
+				"To move disks around, you will need to<br>"+
+				"use the arrow keys on your keyboard.<br>"+
+				"You can restart on any point by pressing F5."+
+				"</center></html>"
+			);
+			repaint();			
 		});
 
-		btn_set.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					int numOfDisks = (int) spin_disks.getValue();
-					SwingUtilities.invokeLater(new Runnable() {
-						public void run() {
-							new GameFrame(numOfDisks);
-						}
-					});
-					dispose();
-										
-				} catch (NumberFormatException nfe) {
-					nfe.printStackTrace();
-					JOptionPane.showMessageDialog(null, "Error parsing the number of disks", "Error", JOptionPane.ERROR_MESSAGE);					
-				}
-			}
-		});
-
-		
-		btn_changePass.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
+		btn_set.addActionListener(e -> {
+			try {
+				int numOfDisks = (int) spin_disks.getValue();
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
-						new ResetPassword();
+						new GameFrame(numOfDisks);
 					}
 				});
 				dispose();
-			}
-			
-		});
-		
-		btn_exit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
+									
+			} catch (NumberFormatException nfe) {
+				nfe.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Error parsing the number of disks", "Error", JOptionPane.ERROR_MESSAGE);					
 			}
 		});
+
 		
-		btn_back.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				btn_play.setVisible(true);				
-				btn_changePass.setVisible(true);				
-				btn_exit.setVisible(true);
-				btn_back.setVisible(false);
-				spin_disks.setVisible(false);
-				btn_set.setVisible(false);
-				label_spin.setVisible(false);
-				label_desc.setText(""+
-					"<html><center>"+
-					"Welcome "+nickname+" ("+username+") in Towers of Hanoi!<br>"+
-					"The rules are simple.<br>"+
-					"Move all disks from the first tower to the last.<br>"+
-					"However, you can only move one disk at the time and<br>"+
-					"you can't place bigger disks on top of the smaller disks."+
-					"</center></html>"
-				);
-				repaint();			
-			}
+		btn_changePass.addActionListener(e -> {
+			SwingUtilities.invokeLater(new Runnable() {
+				public void run() {
+					new ResetPassword();
+				}
+			});
+			dispose();
+		});
+
+		btn_scores.addActionListener(e -> {
+			// TODO: add frame with tables that display scores
+		});
+
+		btn_exit.addActionListener(e -> {
+			dispose();			
+		});
+		
+		btn_back.addActionListener(e -> {
+			btn_play.setVisible(true);				
+			btn_changePass.setVisible(true);				
+			btn_exit.setVisible(true);
+			btn_back.setVisible(false);
+			spin_disks.setVisible(false);
+			btn_set.setVisible(false);
+			label_spin.setVisible(false);
+			label_desc.setText(""+
+				"<html><center>"+
+				"Welcome "+nickname+" ("+username+") in Towers of Hanoi!<br>"+
+				"The rules are simple.<br>"+
+				"Move all disks from the first tower to the last.<br>"+
+				"However, you can only move one disk at the time and<br>"+
+				"you can't place bigger disks on top of the smaller disks."+
+				"</center></html>"
+			);
+			repaint();
 			
 		});
 

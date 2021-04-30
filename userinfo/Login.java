@@ -1,7 +1,5 @@
 package userinfo;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -85,20 +83,12 @@ public class Login extends JFrame {
         btn_login.setBounds(260, 345, 100, 30);       
 
         // Action Listeners
-        btn_signup.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                signup();
-            }
-
+        btn_signup.addActionListener(e -> {
+            signup();
         });
 
-        btn_login.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                login();
-            }
-
+        btn_login.addActionListener(e -> {
+            login();            
         });
 
 
