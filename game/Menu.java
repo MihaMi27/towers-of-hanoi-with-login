@@ -36,11 +36,12 @@ public class Menu extends JFrame {
 		JLabel label_naslov = new JLabel("Towers of Hanoi");
 		JLabel label_spin = new JLabel("Number of disks?");
 		JButton btn_play = new JButton("Play");
-		JButton btn_exit = new JButton("Exit");
 		JButton btn_changePass = new JButton("Change password");		
+		JButton btn_scores = new JButton("High Scores");
+		JButton btn_exit = new JButton("Exit");
 		JButton btn_back = new JButton("Back");
 		JButton btn_set = new JButton("Set");
-		JTextPane textpane_desc = new JTextPane();
+		JLabel label_desc = new JLabel();
 		SpinnerModel model_spin = new SpinnerNumberModel(3,3,10,1); // Init value 3, min value 3, max value 10, step by 1
 		JSpinner spin_disks = new JSpinner(model_spin);
 		JSpinner.NumberEditor spin_ne = (JSpinner.NumberEditor) spin_disks.getEditor();
@@ -56,63 +57,63 @@ public class Menu extends JFrame {
 		
 		// Element Properties
 		cp.setLayout(null);
-		cp.setBackground(new Color(37,37,38,230));		
 		label_naslov.setHorizontalAlignment(SwingConstants.CENTER);
-		label_naslov.setFont(new Font("Helvetica", 0, 30));	
-		label_naslov.setForeground(new Color(240,240,240));	
-
-		textpane_desc.setEditable(false);			
-		textpane_desc.setContentType("text/html");
-		textpane_desc.setText("<html><center>Welcome "+nickname+" ("+username+") in Towers of Hanoi! <br>To move disks around, you will need to use the <br>arrow keys on your keyboard.</center></html>");
-		textpane_desc.setFont(new Font("Helvetica", 0, 14));
-		textpane_desc.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, true); // Honor setFont
-		textpane_desc.setBackground(new Color(0,0,0,0));
-		textpane_desc.setForeground(new Color(240,240,240));
-
-		btn_play.setFont(new Font("Helvetica", 1, 15));
-		btn_play.setBackground(new Color(0, 122, 204));
-		btn_play.setForeground(new Color(240,240,240));
-
-		btn_exit.setFont(new Font("Helvetica", 1, 15));	
-		btn_exit.setBackground(new Color(0, 122, 204));
-		btn_exit.setForeground(new Color(240,240,240));	
-		
-		btn_changePass.setFont(new Font("Helvetica", 1, 15));		
-		btn_changePass.setBackground(new Color(0, 122, 204));
-		btn_changePass.setForeground(new Color(240,240,240));
-
-		btn_back.setFont(new Font("Helvetica", 0, 15));
-		btn_back.setVisible(false);		
-		btn_back.setBackground(new Color(0, 122, 204));
-		btn_back.setForeground(new Color(240,240,240));
-
-		btn_set.setFont(new Font("Helvetica", 0, 15));
-		btn_set.setVisible(false);
-		btn_set.setBackground(new Color(0, 122, 204));
-		btn_set.setForeground(new Color(240,240,240));
-
-		spin_disks.setFont(new Font("Helvetica", 0, 15));
-		spin_disks.setBackground(new Color(0,0,0,0));
-		spin_disks.setForeground(new Color(240,240,240));
-		spin_disks.setVisible(false);
-
+		label_desc.setHorizontalAlignment(SwingConstants.CENTER);
+		label_desc.setText(""+
+		"<html><center>"+
+		"Welcome "+nickname+" ("+username+") in Towers of Hanoi!<br>"+
+		"The rules are simple.<br>"+
+		"Move all disks from the first tower to the last.<br>"+
+		"However, you can only move one disk at the time and<br>"+
+		"you can't place bigger disks on top of the smaller disks."+
+		"</center></html>"
+		);		
 		spin_ne.getTextField().setEditable(false);
-		spin_ne.setBackground(new Color(0,0,0,0));	
-
-		label_spin.setFont(new Font("Helvetica", 0, 15));
-		label_spin.setVisible(false);		
-		label_spin.setForeground(new Color(240,240,240));
-		label_spin.setBackground(new Color(0,0,0,0));
+		label_desc.setFont(new Font("Helvetica", Font.PLAIN, 14));		
+		label_naslov.setFont(new Font("Helvetica", Font.PLAIN, 30));	
+		btn_play.setFont(new Font("Helvetica", Font.BOLD, 15));
+		btn_changePass.setFont(new Font("Helvetica", Font.BOLD, 15));
+		btn_scores.setFont(new Font("Helvetica", Font.BOLD, 15));
+		btn_exit.setFont(new Font("Helvetica", Font.BOLD, 15));	
+		btn_set.setFont(new Font("Helvetica", Font.BOLD, 15));
+		btn_back.setFont(new Font("Helvetica", Font.BOLD, 15));
+		spin_disks.setFont(new Font("Helvetica", Font.PLAIN, 15));
+		label_spin.setFont(new Font("Helvetica", Font.PLAIN, 15));
+		label_desc.setOpaque(false);
+		label_spin.setOpaque(false);
+		spin_disks.setOpaque(false);
+		spin_ne.setOpaque(false);
 		
+		// Element Coloring
+		cp.setBackground(new Color(37,37,38));	
+		label_naslov.setForeground(new Color(240,240,240));	
+		label_desc.setForeground(new Color(240,240,240));
+		label_spin.setForeground(new Color(240,240,240));		
+		btn_play.setBackground(new Color(0,122,204));
+		btn_play.setForeground(new Color(240,240,240));
+		btn_changePass.setBackground(new Color(0,122,204));
+		btn_changePass.setForeground(new Color(240,240,240));
+		btn_scores.setBackground(new Color(0,122,204));
+		btn_scores.setForeground(new Color(240,240,240));
+		btn_exit.setBackground(new Color(0,122,204));
+		btn_exit.setForeground(new Color(240,240,240));	
+		btn_back.setBackground(new Color(0,122,204));
+		btn_back.setForeground(new Color(240,240,240));
+		btn_set.setBackground(new Color(0,122,204));
+		btn_set.setForeground(new Color(240,240,240));		
+		spin_disks.setForeground(new Color(240,240,240));				
+		
+				
 
 		// Element Positioning
 		label_naslov.setBounds(60, 60, 300, 30);
-		textpane_desc.setBounds(20, 100, 400, 100);		
-		btn_play.setBounds(110, 230, 200, 50);
-		btn_changePass.setBounds(110, 290, 200, 50);
-		btn_exit.setBounds(110, 350, 200, 50);
-		btn_back.setBounds(110, 350, 200, 50);
-		btn_set.setBounds(110, 290, 200, 50);
+		label_desc.setBounds(20, 100, 400, 100);		
+		btn_play.setBounds(110, 230, 200, 30);
+		btn_changePass.setBounds(110, 270, 200, 30);
+		btn_scores.setBounds(110,310,200,30);
+		btn_exit.setBounds(110, 350, 200, 30);
+		btn_back.setBounds(110, 350, 200, 30);
+		btn_set.setBounds(110, 290, 200, 30);
 		label_spin.setBounds(110, 205, 200, 25);
 		spin_disks.setBounds(110, 230, 200, 50);
 		
@@ -128,15 +129,26 @@ public class Menu extends JFrame {
 				spin_disks.setVisible(true);
 				btn_set.setVisible(true);
 				label_spin.setVisible(true);			
-				repaint();			
+				label_desc.setText(""+
+					"<html><center>"+
+					"To move disks around, you will need to<br>"+
+					"use the arrow keys on your keyboard.<br>"+
+					"You can restart on any point by pressing F5."+
+					"</center></html>"
+				);
+				repaint();		
 			}
 		});
 
 		btn_set.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					int numOfDisks = (int) spin_disks.getValue();					
-					new GameFrame(numOfDisks).setVisible(true);
+					int numOfDisks = (int) spin_disks.getValue();
+					SwingUtilities.invokeLater(new Runnable() {
+						public void run() {
+							new GameFrame(numOfDisks);
+						}
+					});
 					dispose();
 										
 				} catch (NumberFormatException nfe) {
@@ -146,19 +158,24 @@ public class Menu extends JFrame {
 			}
 		});
 
+		
+		btn_changePass.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						new ResetPassword();
+					}
+				});
+				dispose();
+			}
+			
+		});
+		
 		btn_exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
-		});
-
-		btn_changePass.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				new ResetPassword();				
-			}
-			
 		});
 		
 		btn_back.addActionListener(new ActionListener() {
@@ -171,6 +188,15 @@ public class Menu extends JFrame {
 				spin_disks.setVisible(false);
 				btn_set.setVisible(false);
 				label_spin.setVisible(false);
+				label_desc.setText(""+
+					"<html><center>"+
+					"Welcome "+nickname+" ("+username+") in Towers of Hanoi!<br>"+
+					"The rules are simple.<br>"+
+					"Move all disks from the first tower to the last.<br>"+
+					"However, you can only move one disk at the time and<br>"+
+					"you can't place bigger disks on top of the smaller disks."+
+					"</center></html>"
+				);
 				repaint();			
 			}
 			
@@ -178,9 +204,10 @@ public class Menu extends JFrame {
 
 		// Adding
 		cp.add(label_naslov);
-		cp.add(textpane_desc);
+		cp.add(label_desc);
 		cp.add(btn_play);
 		cp.add(btn_changePass);
+		cp.add(btn_scores);
 		cp.add(btn_exit);
 		cp.add(btn_set);
 		cp.add(btn_back);
@@ -189,11 +216,12 @@ public class Menu extends JFrame {
 		
 		
 
-		// Post
+		// Set Visible
 		this.setVisible(true);
-
-		
-		
+		btn_set.setVisible(false);
+		spin_disks.setVisible(false);
+		label_spin.setVisible(false);		
+		btn_back.setVisible(false);
 		
 	}
 }
