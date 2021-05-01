@@ -75,6 +75,7 @@ public class ResetPassword extends JFrame {
 
         btn_back.addActionListener(e -> {
             SwingUtilities.invokeLater(new Runnable() {
+                @Override
                 public void run() {
                     new Menu();
                 }

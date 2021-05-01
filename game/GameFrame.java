@@ -64,6 +64,7 @@ public class GameFrame extends JFrame {
 			@Override
 			public void windowClosed(WindowEvent e) {
 				SwingUtilities.invokeLater(new Runnable() {
+					@Override
 					public void run() {
 						new Menu();
 					}

@@ -145,6 +145,7 @@ public class Menu extends JFrame {
 			try {
 				int numOfDisks = (int) spin_disks.getValue();
 				SwingUtilities.invokeLater(new Runnable() {
+					@Override
 					public void run() {
 						new GameFrame(numOfDisks);
 					}
@@ -160,6 +161,7 @@ public class Menu extends JFrame {
 		
 		btn_changePass.addActionListener(e -> {
 			SwingUtilities.invokeLater(new Runnable() {
+				@Override
 				public void run() {
 					new ResetPassword();
 				}

@@ -72,7 +72,8 @@ public class Scoreboard extends JFrame {
 
 		// Action Listeners		
 		btn_back.addActionListener(e -> {            
-			SwingUtilities.invokeLater(new Runnable() {                
+			SwingUtilities.invokeLater(new Runnable() {
+                @Override               
                 public void run() {
                     new Menu();                    
                 }                
