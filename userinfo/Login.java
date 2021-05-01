@@ -108,9 +108,7 @@ public class Login extends JFrame {
 
     }
 
-    public static boolean getPasswordStrength(String clear_username, String clear_password) {
-        System.out.println("Matches:"+clear_password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})"));
-        System.out.println("Contains: "+clear_password.contains(clear_username));
+    public static boolean getPasswordStrength(String clear_username, String clear_password) {        
         if (!clear_password.matches("^(?:[a-zA-Z0-9\\s]{1,})$") && !clear_password.contains(clear_username) && !clear_password.contains(" ")) {
             return true;
         } else {
