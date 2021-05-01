@@ -62,14 +62,14 @@ public class Menu extends JFrame {
 		label_naslov.setHorizontalAlignment(SwingConstants.CENTER);
 		label_desc.setHorizontalAlignment(SwingConstants.CENTER);
 		label_desc.setText(""+
-		"<html><center>"+
-		"Welcome "+nickname+" ("+username+") in Towers of Hanoi!<br>"+
-		"The rules are simple.<br>"+
-		"Move all disks from the first tower to the last.<br>"+
-		"However, you can only move one disk at the time and<br>"+
-		"you can't place bigger disks on top of the smaller disks."+
-		"</center></html>"
-		);		
+			"<html><center>"+
+			"Welcome "+nickname+" ("+username+") in Towers of Hanoi!<br>"+
+			"RULES:<br>"+
+			"Move all disks from the first tower to the third tower.<br>"+
+			"However, you can only move one disk at the time and<br>"+
+			"you can't place bigger disks on top of the smaller disks."+
+			"</center></html>"
+		);	
 		spin_ne.getTextField().setEditable(false);
 		label_desc.setFont(new Font("Helvetica", Font.PLAIN, 14));		
 		label_naslov.setFont(new Font("Helvetica", Font.PLAIN, 30));	
