@@ -116,10 +116,22 @@ public class Scoreboard extends JFrame {
                 }
             } catch (IOException ioe) {            
                 JOptionPane.showMessageDialog(null, "There aren't any scores yet", "Error: score file does not exist", JOptionPane.ERROR_MESSAGE);
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        new Menu();
+                    }
+                });
                 dispose();
             }
         } else {
             JOptionPane.showMessageDialog(null, "There aren't any scores yet", "Error: score file does not exist", JOptionPane.ERROR_MESSAGE);
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    new Menu();
+                }
+            });
             dispose();
         }
         
