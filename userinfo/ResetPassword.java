@@ -114,25 +114,29 @@ public class ResetPassword extends JFrame {
         if (!clear_username.isEmpty() && !clear_oldPassword.isEmpty() && !clear_newPassword.isEmpty() && !clear_rptNewPassword.isEmpty()) {
             if (hashed_newPassword.equals(hashed_rptNewPassword)) {
                 if ((lineIndex = Login.checkInFile(Login.info,clear_username)) != -1) {
-                    try {
-                        if (hashed_oldPassword.equals(Login.getHashedPassword(Login.info,lineIndex))) {
-                            String newInfo = clear_username+" "+hashed_newPassword+" "+clear_nickname;
-                            Login.replaceLine(Login.info,newInfo, lineIndex);
-                            JOptionPane.showMessageDialog(null, "Password reset successfully", "Success: Reset", JOptionPane.PLAIN_MESSAGE);
-                            SwingUtilities.invokeLater(new Runnable() {
-                                @Override
-                                public void run() {                                    
-                                    new Menu();
-                                }                                
-                            });
-                            dispose();
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Old password doesn't match", "Error: Reset", JOptionPane.ERROR_MESSAGE);
-                        }                        
-                    } catch (IOException ioe) {                        
-                        ioe.printStackTrace();
-                        JOptionPane.showMessageDialog(null, "File error occured", "Error", JOptionPane.ERROR_MESSAGE);
-                    }                    
+                    if (Login.getPasswordStrength(clear_username, clear_newPassword)) {
+                        try {
+                            if (hashed_oldPassword.equals(Login.getHashedPassword(Login.info,lineIndex))) {
+                                String newInfo = clear_username+" "+hashed_newPassword+" "+clear_nickname;
+                                Login.replaceLine(Login.info,newInfo, lineIndex);
+                                JOptionPane.showMessageDialog(null, "Password reset successfully", "Success: Reset", JOptionPane.PLAIN_MESSAGE);
+                                SwingUtilities.invokeLater(new Runnable() {
+                                    @Override
+                                    public void run() {                                    
+                                        new Menu();
+                                    }                                
+                                });
+                                dispose();
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Old password doesn't match", "Error: Reset", JOptionPane.ERROR_MESSAGE);
+                            }                        
+                        } catch (IOException ioe) {                        
+                            ioe.printStackTrace();
+                            JOptionPane.showMessageDialog(null, "File error occured", "Error", JOptionPane.ERROR_MESSAGE);
+                        } 
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Please use a strong password. Password must contain letters, digits, special characters and can't contain your username or spaces", "Error: Registration", JOptionPane.ERROR_MESSAGE);
+                    }                                       
                 } else {
                     JOptionPane.showMessageDialog(null, "User does not exist or the password is wrong", "Error: Reset", JOptionPane.ERROR_MESSAGE);
                 }
