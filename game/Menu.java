@@ -10,6 +10,7 @@ import java.util.Scanner;
 import javax.swing.*;
 
 import userinfo.ResetPassword;
+import userinfo.Scoreboard;
 
 public class Menu extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -38,7 +39,7 @@ public class Menu extends JFrame {
 		JLabel label_spin = new JLabel("Number of disks?");
 		JButton btn_play = new JButton("Play");
 		JButton btn_changePass = new JButton("Change password");		
-		JButton btn_scores = new JButton("High Scores");
+		JButton btn_scores = new JButton("Scoreboard");
 		JButton btn_exit = new JButton("Exit");
 		JButton btn_back = new JButton("Back");
 		JButton btn_set = new JButton("Set");
@@ -113,8 +114,8 @@ public class Menu extends JFrame {
 		btn_changePass.setBounds(110, 270, 200, 30);
 		btn_scores.setBounds(110,310,200,30);
 		btn_exit.setBounds(110, 350, 200, 30);
-		btn_back.setBounds(110, 350, 200, 30);
 		btn_set.setBounds(110, 290, 200, 30);
+		btn_back.setBounds(110, 330, 200, 30);
 		label_spin.setBounds(110, 205, 200, 25);
 		spin_disks.setBounds(110, 230, 200, 50);
 		
@@ -123,7 +124,8 @@ public class Menu extends JFrame {
 		// Action Listeners
 		btn_play.addActionListener(e -> {
 			btn_play.setVisible(false);				
-			btn_changePass.setVisible(false);				
+			btn_changePass.setVisible(false);	
+			btn_scores.setVisible(false);			
 			btn_exit.setVisible(false);
 			btn_back.setVisible(true);
 			spin_disks.setVisible(true);
@@ -166,7 +168,13 @@ public class Menu extends JFrame {
 		});
 
 		btn_scores.addActionListener(e -> {
-			// TODO: add frame with tables that display scores
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					new Scoreboard();										
+				}				
+			});
+			dispose();
 		});
 
 		btn_exit.addActionListener(e -> {
@@ -176,6 +184,7 @@ public class Menu extends JFrame {
 		btn_back.addActionListener(e -> {
 			btn_play.setVisible(true);				
 			btn_changePass.setVisible(true);				
+			btn_scores.setVisible(true);
 			btn_exit.setVisible(true);
 			btn_back.setVisible(false);
 			spin_disks.setVisible(false);
@@ -208,12 +217,13 @@ public class Menu extends JFrame {
 		
 		
 
-		// Set Visible
+		// Post
 		this.setVisible(true);
 		btn_set.setVisible(false);
 		spin_disks.setVisible(false);
 		label_spin.setVisible(false);		
 		btn_back.setVisible(false);
+		repaint();
 		
 	}
 }

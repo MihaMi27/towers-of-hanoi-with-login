@@ -5,9 +5,11 @@ import java.awt.event.ComponentListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -221,19 +223,38 @@ public class GamePanel extends JPanel {
 		if (tower3.count() == numberOfDisks) {
             repaint();			
 			JOptionPane.showMessageDialog(null, "Congratulations! You did it in "+moves+" moves. Optimal number of moves is " + (int)(Math.pow(2, numberOfDisks)-1)+".", "Finished", JOptionPane.INFORMATION_MESSAGE);
-			File score = new File("./userinfo/score.csv");			
+			File file_score = new File("./userinfo/score.csv");
 			try {
-				PrintWriter pw = new PrintWriter(score);					
-				String name = ResetPassword.getCurrentNickname()+",("+ResetPassword.getCurrentUsername()+")";
-				pw.println(name+","+numberOfDisks+","+moves);
-				pw.append("\n");
+				boolean exists = true;
+				if (!file_score.exists()) {
+					exists = false;
+				}
+				PrintWriter pw = new PrintWriter(new FileWriter(file_score,true));
+				if (!exists) {
+					pw.println("Nickname,Username,Number of Disks,Moves");
+				}
+				String name = ResetPassword.getCurrentNickname()+","+ResetPassword.getCurrentUsername();
+				String text_score = name+","+numberOfDisks+","+moves;
+				Scanner sc = new Scanner(file_score);
+				boolean sameScore = false;
+				while (sc.hasNextLine()) {
+					if (sc.nextLine().equals(text_score)) {
+						sameScore = true;
+					}	
+				}
+				if (!sameScore) {
+					pw.println(text_score);
+				}
 				pw.close();
+				sc.close();
 			} catch (IOException ioe) {				
 				ioe.printStackTrace();				
 			}			
 			SwingUtilities.getWindowAncestor(this).dispose();
 		}
 	}
+	
+	
 
     // Risanje
 	@Override
