@@ -108,6 +108,16 @@ public class Login extends JFrame {
 
     }
 
+    public static boolean getPasswordStrength(String clear_username, String clear_password) {
+        System.out.println("Matches:"+clear_password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})"));
+        System.out.println("Contains: "+clear_password.contains(clear_username));
+        if (!clear_password.matches("^(?:[a-zA-Z0-9\\s]{1,})$") && !clear_password.contains(clear_username) && !clear_password.contains(" ")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static void login() {
         String clear_username = username_field.getText();
         String clear_password = new String(password_field.getPassword());        
@@ -292,20 +302,25 @@ public class Login extends JFrame {
         if (clear_username.isEmpty() || clear_password.isEmpty() || clear_nickname.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Empty username/password/nickname", "Error: Registration", JOptionPane.ERROR_MESSAGE);
         } else {
-            if (validUsername(clear_username)) {                
-                String hashed_password = hashing(clear_password);
-                if (checkInFile(info, clear_username) == -1) {
-                    String line = clear_username + " " + hashed_password + " " + clear_nickname;
-                    try {                 
-                        appendLine(info,line);
-                        JOptionPane.showMessageDialog(null, "You are now registered. Please log in!", "Success: Registration", JOptionPane.PLAIN_MESSAGE);
-                    } catch (IOException ioe) {
-                        ioe.printStackTrace();
-                        JOptionPane.showMessageDialog(null, "File error occured", "Error", JOptionPane.ERROR_MESSAGE);
+            if (validUsername(clear_username)) {
+                if(getPasswordStrength(clear_username,clear_password)) {
+                    String hashed_password = hashing(clear_password);
+                    if (checkInFile(info, clear_username) == -1) {
+                        String line = clear_username + " " + hashed_password + " " + clear_nickname;
+                        try {                 
+                            appendLine(info,line);
+                            JOptionPane.showMessageDialog(null, "You are now registered. Please log in!", "Success: Registration", JOptionPane.PLAIN_MESSAGE);
+                        } catch (IOException ioe) {
+                            ioe.printStackTrace();
+                            JOptionPane.showMessageDialog(null, "File error occured", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Username already in use", "Error: Registration", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Username already in use", "Error: Registration", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Please use a strong password. Password must contain letters, digits, special characters and can't contain your username or spaces", "Error: Registration", JOptionPane.ERROR_MESSAGE);
                 }
+                
             }
         }
     }
