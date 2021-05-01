@@ -111,9 +111,9 @@ public class Menu extends JFrame {
 		label_naslov.setBounds(60, 60, 300, 30);
 		label_desc.setBounds(20, 100, 400, 100);		
 		btn_play.setBounds(110, 230, 200, 30);
-		btn_changePass.setBounds(110, 270, 200, 30);
-		btn_scores.setBounds(110,310,200,30);
-		btn_exit.setBounds(110, 350, 200, 30);
+		btn_scores.setBounds(110,270,200,30);
+		btn_changePass.setBounds(110, 320, 200, 30);
+		btn_exit.setBounds(110, 360, 200, 30);
 		btn_set.setBounds(110, 290, 200, 30);
 		btn_back.setBounds(110, 330, 200, 30);
 		label_spin.setBounds(110, 205, 200, 25);
@@ -193,8 +193,8 @@ public class Menu extends JFrame {
 			label_desc.setText(""+
 				"<html><center>"+
 				"Welcome "+nickname+" ("+username+") in Towers of Hanoi!<br>"+
-				"The rules are simple.<br>"+
-				"Move all disks from the first tower to the last.<br>"+
+				"RULES:<br>"+
+				"Move all disks from the first tower to the third tower.<br>"+
 				"However, you can only move one disk at the time and<br>"+
 				"you can't place bigger disks on top of the smaller disks."+
 				"</center></html>"
