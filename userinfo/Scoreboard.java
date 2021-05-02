@@ -51,6 +51,8 @@ public class Scoreboard extends JFrame {
         table_score.doLayout();     
         table_score.setFillsViewportHeight(true);
         table_score.getColumnModel().getColumn(2).setMaxWidth(60);
+        table_score.setAutoCreateRowSorter(true);
+        
 		
         
 		// Element Coloring	

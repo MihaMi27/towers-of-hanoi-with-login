@@ -229,7 +229,7 @@ public class GamePanel extends JPanel {
 				}
 				PrintWriter pw = new PrintWriter(new FileWriter(file_score,true));
 				if (!exists) {
-					pw.println("User,Number of Disks,Moves,Optimal");
+					pw.println("User,Number of Disks,Moves,Optimal Moves");
 				}
 				String name = ResetPassword.getCurrentUsername();
 				String text_score = name+","+numberOfDisks+","+moves+","+((int)Math.pow(2,numberOfDisks)-1);
