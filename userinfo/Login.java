@@ -111,7 +111,7 @@ public class Login extends JFrame {
 
     public static boolean getPasswordStrength(String clear_username, String clear_password) {  
         boolean containsUsername = clear_password.toLowerCase().contains(clear_username.toLowerCase());
-        if (!clear_password.matches("^(?:[a-zA-Z0-9\\s]{1,})$") && !containsUsername && !clear_password.contains(" ")) {
+        if (!clear_password.matches("^(?:[a-zA-Z0-9\\s]{1,})$") && !containsUsername && !clear_password.contains(" ") && clear_password.length() >= 8) {
             return true;
         } else {
             return false;
