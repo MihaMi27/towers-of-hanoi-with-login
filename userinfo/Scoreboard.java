@@ -50,7 +50,7 @@ public class Scoreboard extends JFrame {
 		btn_back.setFont(new Font("Helvetica", Font.BOLD, 15));
         table_score.doLayout();     
         table_score.setFillsViewportHeight(true);
-        table_score.getColumnModel().getColumn(3).setMaxWidth(60);
+        table_score.getColumnModel().getColumn(2).setMaxWidth(60);
 		
         
 		// Element Coloring	
@@ -95,8 +95,7 @@ public class Scoreboard extends JFrame {
 
     public boolean createTable() {
         File file_score = new File("./userinfo/score.csv");
-        ArrayList<Object[]> local_data = new ArrayList<Object[]>();
-        System.out.println(file_score.exists());
+        ArrayList<Object[]> local_data = new ArrayList<Object[]>();        
         if (file_score.exists()) {
             try {
                 Scanner sc = new Scanner(file_score);
