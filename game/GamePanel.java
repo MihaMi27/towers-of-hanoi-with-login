@@ -26,7 +26,10 @@ public class GamePanel extends JPanel {
 	static int diskWidth;
 	static int movesWidth;
 	static int movesHeight;
+	static int instructionsWidth;
+	static int instructionsHeight;
 	static Font movesFont;
+	static Font instructionsFont;
 	static int xTower1;
 	static int xTower2;
 	static int xTower3;
@@ -44,6 +47,7 @@ public class GamePanel extends JPanel {
 	static final Color COLOR_DISK = new Color(23,235,62);
 	static final Color COLOR_OUTLINE = new Color(255,0,0);
 	static final Color COLOR_MOVES = new Color(0,0,0);
+	static final Color COLOR_INSTRUCTIONS = new Color(0,0,0);
 	
 	Tower tower1;
 	Tower tower2;
@@ -202,7 +206,10 @@ public class GamePanel extends JPanel {
 		diskWidth = (int)((width*0.031));	
 		movesWidth = (int)(width*0.04);
 		movesHeight = (int)(height*0.1);
+		instructionsWidth = (int)(width/2);
+		instructionsHeight = (int)(height*0.1);
 		movesFont = new Font("Helvetica",Font.BOLD,(int)(height*0.05));
+		instructionsFont = new Font("Helvetica",Font.BOLD,(int)(height*0.04));
 		xTower1 = (int)(width*0.150871);
 		xTower2 = (int)((width/2)-(towerWidth/2));
 		xTower3 = (int)(width-(int)(width*0.150871));
@@ -274,6 +281,10 @@ public class GamePanel extends JPanel {
 		g.setColor(COLOR_MOVES);
 		g.drawString("Moves: "+moves, movesWidth, movesHeight);
 				
+		// Instructions
+		g.setFont(instructionsFont);
+		g.setColor(COLOR_INSTRUCTIONS);
+		g.drawString("←↑→↓ = Movement, F5 = Restart",instructionsWidth, instructionsHeight);
 		
 		
 		// Tower 1

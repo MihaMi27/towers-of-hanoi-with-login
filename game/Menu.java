@@ -127,17 +127,11 @@ public class Menu extends JFrame {
 			btn_changePass.setVisible(false);	
 			btn_scores.setVisible(false);			
 			btn_exit.setVisible(false);
+			label_desc.setVisible(false);
 			btn_back.setVisible(true);
 			spin_disks.setVisible(true);
 			btn_set.setVisible(true);
-			label_spin.setVisible(true);			
-			label_desc.setText(""+
-				"<html><center>"+
-				"To move disks around, you will need to<br>"+
-				"use the arrow keys on your keyboard.<br>"+
-				"You can restart on any point by pressing F5."+
-				"</center></html>"
-			);
+			label_spin.setVisible(true);
 			repaint();			
 		});
 
@@ -188,19 +182,11 @@ public class Menu extends JFrame {
 			btn_changePass.setVisible(true);				
 			btn_scores.setVisible(true);
 			btn_exit.setVisible(true);
+			label_desc.setVisible(true);			
 			btn_back.setVisible(false);
 			spin_disks.setVisible(false);
 			btn_set.setVisible(false);
 			label_spin.setVisible(false);
-			label_desc.setText(""+
-				"<html><center>"+
-				"Welcome "+nickname+" ("+username+") in Towers of Hanoi!<br>"+
-				"RULES:<br>"+
-				"Move all disks from the first tower to the third tower.<br>"+
-				"However, you can only move one disk at the time and<br>"+
-				"you can't place bigger disks on top of the smaller disks."+
-				"</center></html>"
-			);
 			repaint();
 			
 		});
