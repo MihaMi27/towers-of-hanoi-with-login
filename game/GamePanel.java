@@ -18,23 +18,17 @@ import javax.swing.SwingUtilities;
 import userinfo.ResetPassword;
 
 
-public class GamePanel extends JPanel {	
+public class GamePanel extends JPanel {		
 	int numberOfDisks;	
 	static int towerWidth;
 	static int towerHeight;
 	static int diskHeight;
-	static int diskWidth;
-	static int movesWidth;
-	static int movesHeight;
-	static int instructionsWidth;
-	static int instructionsHeight;
-	static Font movesFont;
-	static Font instructionsFont;
+	static int diskWidth;	
 	static int xTower1;
 	static int xTower2;
 	static int xTower3;
 	static int yTower;
-	static int moves = 0;
+	int moves = 0;
 	static boolean isSelectedTower1 = true;
 	static boolean isSelectedTower2 = false;
 	static boolean isSelectedTower3 = false;
@@ -55,9 +49,9 @@ public class GamePanel extends JPanel {
 	Tower prevTower;	
 	Disk carriedDisk;	
 
-    public GamePanel(int numDisks) {        
-        setFocusable(true);
-        requestFocus();
+    public GamePanel(int numDisks, GameFrame frame) {
+        setFocusable(true);		
+        requestFocus();				
 		numberOfDisks = numDisks;
 		startGame();		
 		
@@ -137,7 +131,8 @@ public class GamePanel extends JPanel {
 								tower1.push(carriedDisk);
 								carriedDisk = null;
 								if (!prevTower.equals(tower1)) {
-									moves++;									
+									moves++;
+									frame.setMoves();
 								}
 								
 							}
@@ -147,6 +142,7 @@ public class GamePanel extends JPanel {
 								carriedDisk = null;
 								if (!prevTower.equals(tower2)) {
 									moves++;
+									frame.setMoves();
 								}
 							}
 						} else {
@@ -155,6 +151,7 @@ public class GamePanel extends JPanel {
 								carriedDisk = null;
 								if (!prevTower.equals(tower3)) {
 									moves++;
+									frame.setMoves();
 								}
 							}
 						}						
@@ -203,13 +200,7 @@ public class GamePanel extends JPanel {
 		towerWidth = (int)((width*0.015)*(1+numberOfDisks/150));
 		towerHeight = (int)((height*0.30)*(1+numberOfDisks/100));
 		diskHeight = (int)(height*0.027777);
-		diskWidth = (int)((width*0.031));	
-		movesWidth = (int)(width*0.04);
-		movesHeight = (int)(height*0.1);
-		instructionsWidth = (int)(width/2);
-		instructionsHeight = (int)(height*0.1);
-		movesFont = new Font("Helvetica",Font.BOLD,(int)(height*0.05));
-		instructionsFont = new Font("Helvetica",Font.BOLD,(int)(height*0.04));
+		diskWidth = (int)((width*0.031));
 		xTower1 = (int)(width*0.150871);
 		xTower2 = (int)((width/2)-(towerWidth/2));
 		xTower3 = (int)(width-(int)(width*0.150871));
@@ -221,7 +212,7 @@ public class GamePanel extends JPanel {
 			d.setWidth(diskWidth);
 			d.setHeight(diskHeight);
 		}		
-		repaint();
+		repaint();		
 		
 		
 	}
@@ -268,24 +259,13 @@ public class GamePanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
         int width = getWidth();
-        int height = getHeight();
+        int height = getHeight();		
 
 		// Background
 		Graphics2D g2 = (Graphics2D) g;
         GradientPaint gp = new GradientPaint(-100, -100, Color.WHITE, 0, height, COLOR_BACKGROUND);
         g2.setPaint(gp);
         g2.fillRect(0, 0, width, height);
-
-		// Moves		
-		g.setFont(movesFont);
-		g.setColor(COLOR_MOVES);
-		g.drawString("Moves: "+moves, movesWidth, movesHeight);
-				
-		// Instructions
-		g.setFont(instructionsFont);
-		g.setColor(COLOR_INSTRUCTIONS);
-		g.drawString("←↑→↓ = Movement, F5 = Restart",instructionsWidth, instructionsHeight);
-		
 		
 		// Tower 1
 		g.setColor(COLOR_TOWER);
