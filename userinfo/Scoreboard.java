@@ -93,9 +93,10 @@ public class Scoreboard extends JFrame {
         
 	}
 
-    public void createTable() {
+    public boolean createTable() {
         File file_score = new File("./userinfo/score.csv");
         ArrayList<Object[]> local_data = new ArrayList<Object[]>();
+        System.out.println(file_score.exists());
         if (file_score.exists()) {
             try {
                 Scanner sc = new Scanner(file_score);
@@ -124,6 +125,7 @@ public class Scoreboard extends JFrame {
                 });
                 dispose();
             }
+            return true;
         } else {
             JOptionPane.showMessageDialog(null, "There aren't any scores yet", "Error: score file does not exist", JOptionPane.ERROR_MESSAGE);
             SwingUtilities.invokeLater(new Runnable() {
@@ -133,7 +135,8 @@ public class Scoreboard extends JFrame {
                 }
             });
             dispose();
-        }
+            return false;
+        }        
         
     }
 

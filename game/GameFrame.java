@@ -1,9 +1,11 @@
 package game;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.*;
 
@@ -49,8 +51,6 @@ public class GameFrame extends JFrame {
         label_instructions.setFont(font_ingameText);
         label_moves.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         label_instructions.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-		
-		panel_ingameText.setBorder(BorderFactory.createLineBorder(Color.red));
 
 		// Element Positioning
 		game.setBounds(layeredPane.getBounds());
